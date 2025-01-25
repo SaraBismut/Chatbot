@@ -16,13 +16,14 @@ namespace CountDown
         public PluginOutput Execute(PluginInput input)
         {
             int interval;
-            if (!int.TryParse(input.Message, out interval) || interval <= 0)
+            if(!int.TryParse(input.Message, out interval) || interval <= 0)
             {
                 return new PluginOutput("Invalid input. Please enter a valid positive number.");
             }
             _scheduler.Schedule(TimeSpan.FromSeconds(interval), Id, "");
-            return new PluginOutput($"Countdown started for {interval} seconds.");
+            return new PluginOutput("Countdown started.");
         }
+
         public void OnScheduler(string data)
         {
             Console.WriteLine("Fired.");
