@@ -23,7 +23,6 @@ namespace ListPlugin
             {
                 list = JsonSerializer.Deserialize<PersistentDataStructure>(input.PersistentData).List;
             }
-
             if (input.Message == "")
             {
                 input.Callbacks.StartSession();
@@ -38,13 +37,12 @@ namespace ListPlugin
             {
                 var str = input.Message.Substring("add".Length).Trim();
                 list.Add(str);
-
                 var data = new PersistentDataStructure(list);
                 return new PluginOutput($"New task: {str}", JsonSerializer.Serialize(data));
             }
             else if (input.Message.StartsWith("delete", StringComparison.OrdinalIgnoreCase))
             {
-                var str = input.Message.Substring("delete".Length).Trim();
+                var str=input.Message.Substring("delete".Length).Trim();
                 if (string.IsNullOrEmpty(str))
                 {
                     if (list.Count > 0)
@@ -52,11 +50,11 @@ namespace ListPlugin
                         string lastItem = list[list.Count - 1];
                         list.RemoveAt(list.Count - 1);
                         var data = new PersistentDataStructure(list);
-                        return new PluginOutput($"Deleted last task: {lastItem}", JsonSerializer.Serialize(data));
+                        return new PluginOutput($"Deleted task: {lastItem}", JsonSerializer.Serialize(data));
                     }
                     else
                     {
-                        return new PluginOutput("No tasks to delete.");
+                        return new PluginOutput("No task to delete.");
                     }
                 }
                 else
@@ -72,7 +70,7 @@ namespace ListPlugin
                     }
                 }
             }
-            else if (input.Message.Equals("list", StringComparison.OrdinalIgnoreCase))
+            else if (input.Message == "list")
             {
                 string listtasks = string.Join("\r\n", list);
                 return new PluginOutput($"All list tasks:\r\n{listtasks}", input.PersistentData);
