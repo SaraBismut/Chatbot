@@ -11,10 +11,6 @@ namespace Counter
 
         public PluginOutput Execute(PluginInput input)
         {
-            //var lastCount = int.Parse(input.PersistentData);
-            //var result = (lastCount + 1).ToString();
-            //return new PluginOutput(result, result);
-
             var lastCount = 0;
             bool issucceed = int.TryParse(input.PersistentData, out lastCount);
             var result = (lastCount + 1).ToString();
